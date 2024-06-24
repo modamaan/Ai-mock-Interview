@@ -2,6 +2,8 @@ import React from 'react'
 import { Button } from "@/components/ui/button"
 import Head from 'next/head';
 import Contect from './_components/Contect';
+import Link from 'next/link';
+import { FaGithub } from "react-icons/fa";
 
 const page = () => {
   return (
@@ -22,10 +24,13 @@ const page = () => {
         <header className="w-full py-8 bg-gray-100 shadow-md">
           <div className="container mx-auto flex flex-col md:flex-row justify-between items-center px-6">
             <h1 className="text-3xl font-bold text-primary">AI Mock Interview</h1>
-            <nav className="mt-4 md:mt-0">
-              <a href="#features" className="text-lg text-gray-800 mx-2 md:mx-4">Features</a>
-              <a href="#testimonials" className="text-lg text-gray-800 mx-2 md:mx-4">Testimonials</a>
-              <a href="#contact" className="text-lg text-gray-800 mx-2 md:mx-4">Contact</a>
+            <nav className="mt-4 md:mt-0 flex items-center">
+              <div  >
+                <a target='_blanck' href={"https://github.com/modamaan/Ai-mock-Interview"} ><FaGithub className="w-10 h-8"  /></a>
+              </div>
+              <div><a href="#features" className="text-lg text-gray-800 mx-2 md:mx-4">Features</a>
+                <a href="#testimonials" className="text-lg text-gray-800 mx-2 md:mx-4">Testimonials</a>
+                <a href="#contact" className="text-lg text-gray-800 mx-2 md:mx-4">Contact</a></div>
             </nav>
           </div>
         </header>
@@ -107,7 +112,7 @@ const page = () => {
 
         {/* Contact Section */}
         <section id="contact" className="py-16 bg-white px-6 md:px-0">
-          <Contect/>
+          <Contect />
         </section>
       </main>
 

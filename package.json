@@ -28,6 +28,7 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-hook-speech-to-text": "^0.8.0",
+    "react-icons": "^5.2.1",
     "react-webcam": "^7.2.0",
     "sonner": "^1.5.0",
     "tailwind-merge": "^2.3.0",

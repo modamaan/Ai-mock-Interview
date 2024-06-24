@@ -14,13 +14,17 @@ const Header = ({ logo }) => {
       <div className="w-[80%] m-auto flex gap-4 items-center justify-between">
         <Image src={logo} width={80} height={80} alt="logo" />
         <ul className="hidden md:flex gap-6">
-          <li
-            className={`hover:text-black hover:font-bold transition-all cursor-pointer ${
-              path == "/dashboard" && "text-black font-bold"
-            }`}
-          >
-            Dashboard
-          </li>
+
+          <a href="/dashboard">
+            <li
+              className={`hover:text-black hover:font-bold transition-all cursor-pointer ${
+                path == "/dashboard" && "text-black font-bold"
+              }`}
+            >
+              Dashboard
+            </li>
+          </a>
+
           <li
             className={`hover:text-black hover:font-bold transition-all cursor-pointer ${
               path == "/dashboard/questions" && "text-black font-bold"
@@ -28,7 +32,7 @@ const Header = ({ logo }) => {
           >
             Questions
           </li>
-          <a href="/dashboard/upgrade" >
+          <a href="/dashboard/upgrade">
             <li
               className={`hover:text-black hover:font-bold transition-all cursor-pointer ${
                 path == "/dashboard/upgrade" && "text-black font-bold"
