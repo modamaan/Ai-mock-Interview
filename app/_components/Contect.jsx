@@ -1,0 +1,74 @@
+"use client";
+import { db } from "@/utils/db";
+import { Newsletter } from "@/utils/schema";
+import moment from "moment";
+import React, { useState } from "react";
+import { toast } from "sonner";
+
+const Contect = () => {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [message, setMessage] = useState('');
+
+  const onSubmit = async (e) => {
+    e.preventDefault();
+
+    console.log(name, email, message);
+
+    const resp = await db.insert(Newsletter).values({
+      newName: name,
+      newEmail: email,
+      newMessage: message,
+      createdAt: moment().format("YYYY-MM-DD"),
+    });
+
+    if (resp) {
+      toast("User Response recorded successfully");
+      setName('')
+      setEmail('')
+      setMessage('')
+    }
+  };
+  return (
+    <div className="container mx-auto text-center">
+      <h2 className="text-4xl font-bold text-gray-800">Get In Touch</h2>
+      <p className="mt-4 text-lg text-gray-600">
+        Have any questions? Reach out to us and we'll get back to you as soon as
+        possible.
+      </p>
+      <div className="mt-8">
+        <form onSubmit={onSubmit} className="max-w-xl mx-auto">
+          <input
+            type="text"
+            placeholder="Your Name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            className="w-full px-4 py-3 mb-4 text-lg border border-gray-300 rounded-lg"
+          />
+          <input
+            type="email"
+            placeholder="Your Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="w-full px-4 py-3 mb-4 text-lg border border-gray-300 rounded-lg"
+          />
+          <textarea
+            placeholder="Your Message"
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            className="w-full px-4 py-3 mb-4 text-lg border border-gray-300 rounded-lg"
+            rows="4"
+          />
+          <button
+            type="submit"
+            className="px-6 py-3 text-lg font-semibold bg-black text-white rounded-lg shadow-lg hover:bg-gray-700"
+          >
+            Send Message
+          </button>
+        </form>
+      </div>
+    </div>
+  );
+};
+
+export default Contect;
