@@ -1,9 +1,23 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { UserButton } from "@clerk/nextjs";
 import { usePathname } from "next/navigation";
 const Header = ({ logo }) => {
+  const [isUserButtonLoaded, setUserButtonLoaded] = useState(false)
+
+  const SkeletonLoader = () => (
+    <div className="w-8 h-8 bg-gray-300 rounded-full animate-pulse"></div>
+  );
+
+   useEffect(() => {
+    const timer = setTimeout(()=>{
+      setUserButtonLoaded(true)
+    },1000);
+
+    return ()=> clearTimeout(timer)
+  },[])
+
   const path = usePathname();
 
   useEffect(() => {
@@ -12,9 +26,10 @@ const Header = ({ logo }) => {
   return (
     <div className=" bg-secondary shadow-sm ">
       <div className="w-[80%] m-auto flex gap-4 items-center justify-between">
-        <Image src={logo} width={80} height={80} alt="logo" />
+        <a href="/dashboard">
+          <Image src={logo} width={80} height={80} alt="logo" />
+        </a>
         <ul className="hidden md:flex gap-6">
-
           <a href="/dashboard">
             <li
               className={`hover:text-black hover:font-bold transition-all cursor-pointer ${
@@ -50,7 +65,8 @@ const Header = ({ logo }) => {
             How it works?
           </li>
         </ul>
-        <UserButton />
+        {isUserButtonLoaded ? <UserButton /> : <SkeletonLoader/> }
+        
       </div>
     </div>
   );
