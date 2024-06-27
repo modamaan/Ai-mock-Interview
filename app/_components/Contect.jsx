@@ -6,27 +6,37 @@ import React, { useState } from "react";
 import { toast } from "sonner";
 
 const Contect = () => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [message, setMessage] = useState('');
+
+  const handleInputChange = (setState) => (e)=>{
+    setState(e.target.value)
+  }
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
 
   const onSubmit = async (e) => {
     e.preventDefault();
 
     console.log(name, email, message);
 
-    const resp = await db.insert(Newsletter).values({
-      newName: name,
-      newEmail: email,
-      newMessage: message,
-      createdAt: moment().format("YYYY-MM-DD"),
-    });
+    if (name && email && message) {
+      const resp = await db.insert(Newsletter).values({
+        newName: name,
+        newEmail: email,
+        newMessage: message,
+        createdAt: moment().format("YYYY-MM-DD"),
+      });
 
-    if (resp) {
-      toast("User Response recorded successfully");
-      setName('')
-      setEmail('')
-      setMessage('')
+      if (resp) {
+        toast("User Response recorded successfully");
+        setName("");
+        setEmail("");
+        setMessage("");
+      } else {
+        toast("Error recording response");
+      }
+    } else {
+      toast("No data entered");
     }
   };
   return (
@@ -42,20 +52,20 @@ const Contect = () => {
             type="text"
             placeholder="Your Name"
             value={name}
-            onChange={(e) => setName(e.target.value)}
+            onChange={handleInputChange(setName)}
             className="w-full px-4 py-3 mb-4 text-lg border border-gray-300 rounded-lg"
           />
           <input
             type="email"
             placeholder="Your Email"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={handleInputChange(setEmail)}
             className="w-full px-4 py-3 mb-4 text-lg border border-gray-300 rounded-lg"
           />
           <textarea
             placeholder="Your Message"
             value={message}
-            onChange={(e) => setMessage(e.target.value)}
+            onChange={handleInputChange(setMessage)}
             className="w-full px-4 py-3 mb-4 text-lg border border-gray-300 rounded-lg"
             rows="4"
           />
