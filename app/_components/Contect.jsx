@@ -7,27 +7,37 @@ import React, { useState } from "react";
 import { toast } from "sonner";
 
 const Contect = () => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [message, setMessage] = useState('');
+
+  const handleInputChange = (setState) => (e)=>{
+    setState(e.target.value)
+  }
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
 
   const onSubmit = async (e) => {
     e.preventDefault();
 
     console.log(name, email, message);
 
-    const resp = await db.insert(Newsletter).values({
-      newName: name,
-      newEmail: email,
-      newMessage: message,
-      createdAt: moment().format("YYYY-MM-DD"),
-    });
+    if (name && email && message) {
+      const resp = await db.insert(Newsletter).values({
+        newName: name,
+        newEmail: email,
+        newMessage: message,
+        createdAt: moment().format("YYYY-MM-DD"),
+      });
 
-    if (resp) {
-      toast("User Response recorded successfully");
-      setName('')
-      setEmail('')
-      setMessage('')
+      if (resp) {
+        toast("User Response recorded successfully");
+        setName("");
+        setEmail("");
+        setMessage("");
+      } else {
+        toast("Error recording response");
+      }
+    } else {
+      toast("No data entered");
     }
   };
   return (
@@ -43,20 +53,32 @@ const Contect = () => {
             type="text"
             placeholder="Your Name"
             value={name}
+<<<<<<< HEAD
             onChange={(e)=>setName(e.tartget.value)}
+=======
+            onChange={handleInputChange(setName)}
+>>>>>>> 613054ba2e293e9868275a1ab72bae0b90e2e9a7
             className="w-full px-4 py-3 mb-4 text-lg border border-gray-300 rounded-lg"
           />
           <input
             type="email"
             placeholder="Your Email"
             value={email}
+<<<<<<< HEAD
             onChange={(e)=>setEmail(e.tartget.value)}
+=======
+            onChange={handleInputChange(setEmail)}
+>>>>>>> 613054ba2e293e9868275a1ab72bae0b90e2e9a7
             className="w-full px-4 py-3 mb-4 text-lg border border-gray-300 rounded-lg"
           />
           <textarea
             placeholder="Your Message"
             value={message}
+<<<<<<< HEAD
             onChange={(e)=>setMessage(e.tartget.value)}
+=======
+            onChange={handleInputChange(setMessage)}
+>>>>>>> 613054ba2e293e9868275a1ab72bae0b90e2e9a7
             className="w-full px-4 py-3 mb-4 text-lg border border-gray-300 rounded-lg"
             rows="4"
           />
