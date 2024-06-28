@@ -43,20 +43,20 @@ const Contect = () => {
             type="text"
             placeholder="Your Name"
             value={name}
-            onChange={handleInputChange(setName)}
+            onChange={(e)=>setName(e.tartget.value)}
             className="w-full px-4 py-3 mb-4 text-lg border border-gray-300 rounded-lg"
           />
           <input
             type="email"
             placeholder="Your Email"
             value={email}
-            onChange={handleInputChange(setEmail)}
+            onChange={(e)=>setEmail(e.tartget.value)}
             className="w-full px-4 py-3 mb-4 text-lg border border-gray-300 rounded-lg"
           />
           <textarea
             placeholder="Your Message"
             value={message}
-            onChange={handleInputChange(setMessage)}
+            onChange={(e)=>setMessage(e.tartget.value)}
             className="w-full px-4 py-3 mb-4 text-lg border border-gray-300 rounded-lg"
             rows="4"
           />
