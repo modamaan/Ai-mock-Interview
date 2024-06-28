@@ -7,10 +7,9 @@ import React, { useState } from "react";
 import { toast } from "sonner";
 
 const Contect = () => {
-
-  const handleInputChange = (setState) => (e)=>{
-    setState(e.target.value)
-  }
+  const handleInputChange = (setState) => (e) => {
+    setState(e.target.value);
+  };
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
@@ -53,32 +52,19 @@ const Contect = () => {
             type="text"
             placeholder="Your Name"
             value={name}
-<<<<<<< HEAD
-            onChange={(e)=>setName(e.tartget.value)}
-=======
             onChange={handleInputChange(setName)}
->>>>>>> 613054ba2e293e9868275a1ab72bae0b90e2e9a7
             className="w-full px-4 py-3 mb-4 text-lg border border-gray-300 rounded-lg"
           />
           <input
             type="email"
             placeholder="Your Email"
-            value={email}
-<<<<<<< HEAD
-            onChange={(e)=>setEmail(e.tartget.value)}
-=======
             onChange={handleInputChange(setEmail)}
->>>>>>> 613054ba2e293e9868275a1ab72bae0b90e2e9a7
             className="w-full px-4 py-3 mb-4 text-lg border border-gray-300 rounded-lg"
           />
           <textarea
             placeholder="Your Message"
             value={message}
-<<<<<<< HEAD
-            onChange={(e)=>setMessage(e.tartget.value)}
-=======
             onChange={handleInputChange(setMessage)}
->>>>>>> 613054ba2e293e9868275a1ab72bae0b90e2e9a7
             className="w-full px-4 py-3 mb-4 text-lg border border-gray-300 rounded-lg"
             rows="4"
           />
@@ -86,11 +72,7 @@ const Contect = () => {
             type="submit"
             className="px-6 py-3 text-lg font-semibold bg-black text-white rounded-lg shadow-lg hover:bg-gray-700"
           >
-            {loading ? (
-              <LoaderCircle className="animate-spin" />
-            ) : (
-              "Send Message"
-            )}
+            Send Message
           </button>
         </form>
       </div>
