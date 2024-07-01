@@ -48,8 +48,6 @@ const Feedback = ({ params }) => {
 
   return (
     <div className="p-10">
-     
-
       {feedbackList?.length == 0 ? (
         <h2 className="font-bold text-xl text-gray-500 my-5">
           No Interview feedback Record Found

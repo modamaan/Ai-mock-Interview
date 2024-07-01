@@ -67,6 +67,7 @@ const Contect = () => {
           <input
             type="email"
             placeholder="Your Email"
+            value={email}
             onChange={handleInputChange(setEmail)}
             className="w-full px-4 py-3 mb-4 text-lg border border-gray-300 rounded-lg"
           />
