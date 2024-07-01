@@ -7,10 +7,13 @@ import React, { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import Webcam from "react-webcam";
 import Link from "next/link";
+import { useContext } from 'react';
+import { WebCamContext } from "../../layout";
 
 const Interview = ({ params }) => {
+  const { webCamEnabled, setWebCamEnabled } = useContext(WebCamContext);
   const [interviewData, setInterviewData] = useState();
-  const [webCamEnabled, setWebCamEnebled] = useState(false);
+  // const [webCamEnabled, setWebCamEnebled] = useState(false);
   useEffect(() => {
     console.log(params.interviewId);
     GetInterviewDetails();
@@ -57,8 +60,8 @@ const Interview = ({ params }) => {
           {webCamEnabled ? (
             <div className=" flex items-center justify-center p-10">
               <Webcam
-                onUserMedia={() => setWebCamEnebled(true)}
-                onUserMediaError={() => setWebCamEnebled(false)}
+                onUserMedia={() => setWebCamEnabled(true)}
+                onUserMediaError={() => setWebCamEnabled(false)}
                 height={300}
                 width={300}
                 mirrored={true}
@@ -72,14 +75,14 @@ const Interview = ({ params }) => {
           <div>
             <Button
               className={`${webCamEnabled ? "w-full" : "w-full"}`}
-              onClick={() => setWebCamEnebled((prev) => !prev)}
+              onClick={() => setWebCamEnabled((prev) => !prev)}
             >
               {webCamEnabled ? "Close WebCam" : "Enable WebCam"}
             </Button>
           </div>
         </div>
       </div>
-      <div className="flex justify-end items-end">
+      <div className="flex justify-center my-4 md:my-0 md:justify-end md:items-end">
         <Link href={"/dashboard/interview/" + params.interviewId + "/start"}>
           <Button>Start Interview</Button>
         </Link>

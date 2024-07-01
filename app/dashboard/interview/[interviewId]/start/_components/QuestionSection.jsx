@@ -17,7 +17,7 @@ const QuestionSection = ({ mockInterviewQuestion, activeQuestionIndex }) => {
           {mockInterviewQuestion &&
             mockInterviewQuestion.map((question, index) => (
               <h2
-                className={`p-2  rounded-full text-center text-xs md:text-sm cursor-pointer ${
+                className={`p-2  rounded-full text-center text-xs md:text-sm cursor-pointer md:block hidden ${
                   activeQuestionIndex == index
                     ? "bg-black text-white"
                     : "bg-secondary"
@@ -36,7 +36,7 @@ const QuestionSection = ({ mockInterviewQuestion, activeQuestionIndex }) => {
             textToSpeech(mockInterviewQuestion[activeQuestionIndex]?.Question)
           }
         />
-        <div className="border rounded-lg p-5 bg-blue-100 mt-18">
+        <div className="border rounded-lg p-5 bg-blue-100 mt-18 md:block hidden">
           <h2 className="flex gap-2 items-center text-blue-800">
             <Lightbulb />
             <strong>Note:</strong>

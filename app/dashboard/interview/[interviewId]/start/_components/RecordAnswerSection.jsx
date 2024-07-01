@@ -1,7 +1,7 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Webcam from "react-webcam";
 import useSpeechToText from "react-hook-speech-to-text";
 import { Mic } from "lucide-react";
@@ -11,6 +11,7 @@ import { db } from "@/utils/db";
 import { UserAnswer } from "@/utils/schema";
 import { useUser } from "@clerk/nextjs";
 import moment from "moment";
+import { WebCamContext } from "@/app/dashboard/layout";
 
 const RecordAnswerSection = ({
   mockInterviewQuestion,
@@ -27,11 +28,12 @@ const RecordAnswerSection = ({
     results,
     startSpeechToText,
     stopSpeechToText,
-    setResults
+    setResults,
   } = useSpeechToText({
     continuous: true,
     useLegacyResults: false,
   });
+  const { webCamEnabled, setWebCamEnabled } = useContext(WebCamContext);
 
   useEffect(() => {
     results.map((result) =>
@@ -53,7 +55,6 @@ const RecordAnswerSection = ({
   const StartStopRecording = async () => {
     if (isRecording) {
       stopSpeechToText();
-     
     } else {
       startSpeechToText();
     }
@@ -78,8 +79,7 @@ const RecordAnswerSection = ({
       console.log(MockJsonResp);
 
       // Removing possible extra text around JSON
-      MockJsonResp = MockJsonResp.replace("```json", "")
-      .replace("```", "");
+      MockJsonResp = MockJsonResp.replace("```json", "").replace("```", "");
 
       // Attempt to parse JSON
       let jsonFeedbackResp;
@@ -104,7 +104,7 @@ const RecordAnswerSection = ({
         toast("User Answer recorded successfully");
       }
       setUserAnswer("");
-      setResults([])
+      setResults([]);
       setLoading(false);
     } catch (error) {
       console.error(error);
@@ -114,22 +114,29 @@ const RecordAnswerSection = ({
   };
 
   return (
-    <div className="flex flex-col items-center justify-center">
+    <div className="flex flex-col items-center justify-center overflow-hidden">
       <div className="flex flex-col justify-center items-center rounded-lg p-5 bg-black mt-4 w-[30rem] ">
-        <Image
-          src={"/camera.jpg"}
-          width={200}
-          height={200}
-          className="absolute"
-        />
-        <Webcam
-          mirrored={true}
-          style={{ height: 300, width: "100%", zIndex: 10 }}
-        />
+        {webCamEnabled ? (
+          <Webcam
+            mirrored={true}
+            style={{ height: 250, width: "100%", zIndex: 10 }}
+          />
+        ) : (
+          <Image src={"/camera.jpg"} width={200} height={200} />
+        )}
+      </div>
+      <div className="md:flex  mt-4 md:mt-8 md:gap-5" >
+      <div className="my-4 md:my-0" >
+        <Button
+          // className={`${webCamEnabled ? "w-full" : "w-full"}`}
+          onClick={() => setWebCamEnabled((prev) => !prev)}
+        >
+          {webCamEnabled ? "Close WebCam" : "Enable WebCam"}
+        </Button>
       </div>
       <Button
         varient="outline"
-        className="my-10"
+        // className="my-10"
         onClick={StartStopRecording}
         disabled={loading}
       >
@@ -141,6 +148,7 @@ const RecordAnswerSection = ({
           " Record Answer"
         )}
       </Button>
+      </div>
     </div>
   );
 };
