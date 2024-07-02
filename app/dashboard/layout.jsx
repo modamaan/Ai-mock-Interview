@@ -3,7 +3,6 @@ import React from "react";
 import Header from "./_components/Header";
 import logo from "../../public/logo.svg";
 import { createContext, useState } from "react";
-import { ThemeProvider } from "@/components/theme-provider";
 export const WebCamContext = createContext();
 
 const DashboardLayout = ({ children }) => {
