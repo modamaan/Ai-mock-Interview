@@ -105,7 +105,7 @@ const AddNewInterview = () => {
                   </h2>
 
                   <div className="mt-7 my-3">
-                    <label>Job Role/job Position</label>
+                    <label className="text-black" >Job Role/job Position</label>
                     <Input
                       className="mt-1"
                       placeholder="Ex. Full stack Developer"
@@ -113,16 +113,17 @@ const AddNewInterview = () => {
                       onChange={(e) => setJobPosition(e.target.value)}
                     />
                   </div>
-                  <div className="my-3">
-                    <label>Job Description/ Tech stack (In Short)</label>
+                  <div className="my-5">
+                    <label className="text-black" >Job Description/ Tech stack (In Short)</label>
                     <Textarea
+                     className="placeholder-opacity-50"
                       placeholder="Ex. React, Angular, Nodejs, Mysql, Nosql, Python"
                       required
                       onChange={(e) => setJobDesc(e.target.value)}
                     />
                   </div>
-                  <div className="my-3">
-                    <label>Years of Experience</label>
+                  <div className="my-5">
+                    <label className="text-black" >Years of Experience</label>
                     <Input
                       className="mt-1"
                       placeholder="Ex. 5"

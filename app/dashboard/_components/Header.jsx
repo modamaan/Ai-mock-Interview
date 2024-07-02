@@ -4,19 +4,19 @@ import Image from "next/image";
 import { UserButton } from "@clerk/nextjs";
 import { usePathname } from "next/navigation";
 const Header = ({ logo }) => {
-  const [isUserButtonLoaded, setUserButtonLoaded] = useState(false)
+  const [isUserButtonLoaded, setUserButtonLoaded] = useState(false);
 
   const SkeletonLoader = () => (
     <div className="w-8 h-8 bg-gray-300 rounded-full animate-pulse"></div>
   );
 
-   useEffect(() => {
-    const timer = setTimeout(()=>{
-      setUserButtonLoaded(true)
-    },1000);
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setUserButtonLoaded(true);
+    }, 1000);
 
-    return ()=> clearTimeout(timer)
-  },[])
+    return () => clearTimeout(timer);
+  }, []);
 
   const path = usePathname();
 
@@ -57,16 +57,17 @@ const Header = ({ logo }) => {
             </li>
           </a>
 
-          <li
-            className={`hover:text-black hover:font-bold transition-all cursor-pointer ${
-              path == "/dashboard/how" && "text-black font-bold"
-            }`}
-          >
-            How it works?
-          </li>
+          <a href="/dashboard/howit">
+            <li
+              className={`hover:text-black hover:font-bold transition-all cursor-pointer ${
+                path == "/dashboard/how" && "text-black font-bold"
+              }`}
+            >
+              How it works?
+            </li>
+          </a>
         </ul>
-        {isUserButtonLoaded ? <UserButton /> : <SkeletonLoader/> }
-        
+        {isUserButtonLoaded ? <UserButton /> : <SkeletonLoader />}
       </div>
     </div>
   );
