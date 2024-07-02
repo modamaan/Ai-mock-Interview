@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { UserButton } from "@clerk/nextjs";
 import { usePathname } from "next/navigation";
+import { ModeToggle } from "@/components/ModeToggle";
 const Header = ({ logo }) => {
   const [isUserButtonLoaded, setUserButtonLoaded] = useState(false);
 
@@ -67,7 +68,10 @@ const Header = ({ logo }) => {
             </li>
           </a>
         </ul>
-        {isUserButtonLoaded ? <UserButton /> : <SkeletonLoader />}
+        <div className="flex gap-10" >
+          <ModeToggle  />
+          {isUserButtonLoaded ? <UserButton /> : <SkeletonLoader />}
+        </div>
       </div>
     </div>
   );
