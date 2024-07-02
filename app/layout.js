@@ -21,7 +21,7 @@ export default function RootLayout({ children }) {
           <Toaster />
           <ThemeProvider
             attribute="class"
-            defaultTheme="system"
+            defaultTheme="white"
             enableSystem
             disableTransitionOnChange
           >
