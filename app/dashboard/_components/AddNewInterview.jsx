@@ -22,7 +22,6 @@ import { useUser } from "@clerk/nextjs";
 import moment from "moment";
 import { useRouter } from "next/navigation";
 
-
 const AddNewInterview = () => {
   const [openDailog, setOpenDialog] = useState(false);
   const [jobPosition, setJobPosition] = useState();
@@ -31,33 +30,33 @@ const AddNewInterview = () => {
   const [loading, setLoading] = useState(false);
   const [jsonResponse, setJsonResponse] = useState([]);
   const { user } = useUser();
-  const router = useRouter()
+  const router = useRouter();
 
   const onSubmit = async (e) => {
     setLoading(true);
     e.preventDefault();
     console.log(jobPosition, jobDesc, jobExperience);
 
-    const InputPrompt =
-      "Job Positions: " +
-      jobPosition +
-      ", Job Description: " +
-      jobDesc +
-      " Years of Experience: " +
-      jobExperience +
-      ", Depends on this information please give me 5 Interview question with Answered in Json Format, Give Question and Answer as field in JSON, ensure Question and Answer are fields";
+    const InputPrompt = `
+  Job Positions: ${jobPosition}, 
+  Job Description: ${jobDesc}, 
+  Years of Experience: ${jobExperience}. 
+  Based on this information, please provide 5 interview questions with answers in JSON format, ensuring "Question" and "Answer" are fields in the JSON.
+`;
 
     const result = await chatSession.sendMessage(InputPrompt);
     const MockJsonResp = result.response
       .text()
       .replace("```json", "")
-      .replace("```", "");
+      .replace("```", "")
+      .trim();
     console.log(JSON.parse(MockJsonResp));
     // const parsedResp = MockJsonResp
     setJsonResponse(MockJsonResp);
 
     if (MockJsonResp) {
-      const resp = await db.insert(MockInterview)
+      const resp = await db
+        .insert(MockInterview)
         .values({
           mockId: uuidv4(),
           jsonMockResp: MockJsonResp,
@@ -71,11 +70,10 @@ const AddNewInterview = () => {
 
       console.log("Inserted ID:", resp);
 
-      if(resp){
+      if (resp) {
         setOpenDialog(false);
-        router.push('/dashboard/interview/'+resp[0]?.mockId)
+        router.push("/dashboard/interview/" + resp[0]?.mockId);
       }
-      
     } else {
       console.log("ERROR");
     }
@@ -105,7 +103,7 @@ const AddNewInterview = () => {
                   </h2>
 
                   <div className="mt-7 my-3">
-                    <label className="text-black" >Job Role/job Position</label>
+                    <label className="text-black">Job Role/job Position</label>
                     <Input
                       className="mt-1"
                       placeholder="Ex. Full stack Developer"
@@ -114,16 +112,18 @@ const AddNewInterview = () => {
                     />
                   </div>
                   <div className="my-5">
-                    <label className="text-black" >Job Description/ Tech stack (In Short)</label>
+                    <label className="text-black">
+                      Job Description/ Tech stack (In Short)
+                    </label>
                     <Textarea
-                     className="placeholder-opacity-50"
+                      className="placeholder-opacity-50"
                       placeholder="Ex. React, Angular, Nodejs, Mysql, Nosql, Python"
                       required
                       onChange={(e) => setJobDesc(e.target.value)}
                     />
                   </div>
                   <div className="my-5">
-                    <label className="text-black" >Years of Experience</label>
+                    <label className="text-black">Years of Experience</label>
                     <Input
                       className="mt-1"
                       placeholder="Ex. 5"

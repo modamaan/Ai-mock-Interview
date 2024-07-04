@@ -125,29 +125,29 @@ const RecordAnswerSection = ({
           <Image src={"/camera.jpg"} width={200} height={200} />
         )}
       </div>
-      <div className="md:flex  mt-4 md:mt-8 md:gap-5" >
-      <div className="my-4 md:my-0" >
+      <div className="md:flex  mt-4 md:mt-8 md:gap-5">
+        <div className="my-4 md:my-0">
+          <Button
+            // className={`${webCamEnabled ? "w-full" : "w-full"}`}
+            onClick={() => setWebCamEnabled((prev) => !prev)}
+          >
+            {webCamEnabled ? "Close WebCam" : "Enable WebCam"}
+          </Button>
+        </div>
         <Button
-          // className={`${webCamEnabled ? "w-full" : "w-full"}`}
-          onClick={() => setWebCamEnabled((prev) => !prev)}
+          varient="outline"
+          // className="my-10"
+          onClick={StartStopRecording}
+          disabled={loading}
         >
-          {webCamEnabled ? "Close WebCam" : "Enable WebCam"}
+          {isRecording ? (
+            <h2 className="text-red-400 flex gap-2 ">
+              <Mic /> Stop Recording...
+            </h2>
+          ) : (
+            " Record Answer"
+          )}
         </Button>
-      </div>
-      <Button
-        varient="outline"
-        // className="my-10"
-        onClick={StartStopRecording}
-        disabled={loading}
-      >
-        {isRecording ? (
-          <h2 className="text-red-400 flex gap-2 ">
-            <Mic /> Stop Recording...
-          </h2>
-        ) : (
-          " Record Answer"
-        )}
-      </Button>
       </div>
     </div>
   );
