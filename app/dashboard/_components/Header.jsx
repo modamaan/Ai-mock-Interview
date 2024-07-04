@@ -96,19 +96,45 @@ const Header = ({ logo }) => {
       </div>
       {isOpen && (
         <div className="md:hidden">
-          <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-            <a href="/dashboard" className="block px-3 py-2 rounded-md text-base font-medium text-gray-900 hover:text-black hover:bg-gray-100">
+          <div className="px-5">
+          <ul className="px-2 pt-2 pb-3 space-y-1 sm:px-3" >
+          <a href="/dashboard">
+            <li
+              className={`hover:text-black hover:font-bold transition-all cursor-pointer ${
+                path == "/dashboard" && "text-black font-bold"
+              }`}
+            >
               Dashboard
-            </a>
-            <a href="/dashboard/questions" className="block px-3 py-2 rounded-md text-base font-medium text-gray-900 hover:text-black hover:bg-gray-100">
-              Questions
-            </a>
-            <a href="/dashboard/upgrade" className="block px-3 py-2 rounded-md text-base font-medium text-gray-900 hover:text-black hover:bg-gray-100">
+            </li>
+          </a>
+          <a href="/dashboard/question">
+          <li
+            className={`hover:text-black hover:font-bold transition-all cursor-pointer ${
+              path == "/dashboard/question" && "text-black font-bold"
+            }`}
+          >
+            Questions
+          </li>
+          </a>
+          <a href="/dashboard/upgrade">
+            <li
+              className={`hover:text-black hover:font-bold transition-all cursor-pointer ${
+                path == "/dashboard/upgrade" && "text-black font-bold"
+              }`}
+            >
               Upgrade
-            </a>
-            <a href="/dashboard/how" className="block px-3 py-2 rounded-md text-base font-medium text-gray-900 hover:text-black hover:bg-gray-100">
+            </li>
+          </a>
+          <a href="/dashboard/howit">
+            <li
+              className={`hover:text-black hover:font-bold transition-all cursor-pointer ${
+                path == "/dashboard/howit" && "text-black font-bold"
+              }`}
+            >
               How it works?
-            </a>
+            </li>
+          </a>
+          </ul>
           </div>
         </div>
       )}
