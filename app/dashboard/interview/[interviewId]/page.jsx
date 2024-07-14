@@ -18,13 +18,13 @@ const Interview = ({ params }) => {
     console.log(params.interviewId);
     GetInterviewDetails();
   }, []);
-
+  
   const GetInterviewDetails = async () => {
     const result = await db
       .select()
       .from(MockInterview)
       .where(eq(MockInterview.mockId, params.interviewId));
-
+      
     setInterviewData(result[0]);
   };
   return (

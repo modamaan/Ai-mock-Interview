@@ -25,7 +25,7 @@ const page = ({ params }) => {
       .where(eq(Question.mockId, params.pyqId));
       const questionData = JSON.parse(result[0].MockQuestionJsonResp);
     setQuestionData(questionData);
-    console.log("data", questionData);
+    // console.log("data", questionData);
   };
 
 

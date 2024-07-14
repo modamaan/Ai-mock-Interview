@@ -41,8 +41,8 @@ const Contect = () => {
       } catch (error) {
         console.error(error);
         toast("Error recording response");
-      }finally{
-        setLoading(false)
+      } finally {
+        setLoading(false);
       }
     } else {
       toast("No data entered");
@@ -82,7 +82,11 @@ const Contect = () => {
             type="submit"
             className="px-6 py-3 text-lg font-semibold bg-black text-white rounded-lg shadow-lg hover:bg-gray-700"
           >
-            {loading? <LoaderCircle className="animate-spin" />:"Send Message"}
+            {loading ? (
+              <LoaderCircle className="animate-spin" />
+            ) : (
+              "Send Message"
+            )}
           </button>
         </form>
       </div>

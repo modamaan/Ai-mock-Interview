@@ -4,6 +4,7 @@ import Image from "next/image";
 import { UserButton } from "@clerk/nextjs";
 import { usePathname } from "next/navigation";
 import { ModeToggle } from "@/components/ModeToggle";
+import Link from "next/link";
 const Header = ({ logo }) => {
   const [isUserButtonLoaded, setUserButtonLoaded] = useState(false);
   const [isOpen, setIsOpen] = useState(false)
@@ -32,11 +33,11 @@ const Header = ({ logo }) => {
   return (
     <div className=" bg-secondary shadow-sm ">
       <div className="w-[80%] m-auto flex gap-4 items-center justify-between">
-        <a className="hidden md:block"  href="/dashboard">
+        <Link className="hidden md:block"  href="/dashboard">
           <Image src={logo} width={80} height={80} alt="logo" />
-        </a>
+        </Link>
         <ul className="hidden md:flex gap-6">
-          <a href="/dashboard">
+          <Link href="/dashboard">
             <li
               className={`hover:text-black hover:font-bold transition-all cursor-pointer ${
                 path == "/dashboard" && "text-black font-bold"
@@ -44,8 +45,8 @@ const Header = ({ logo }) => {
             >
               Dashboard
             </li>
-          </a>
-          <a href="/dashboard/question">
+          </Link>
+          <Link href="/dashboard/question">
           <li
             className={`hover:text-black hover:font-bold transition-all cursor-pointer ${
               path == "/dashboard/question" && "text-black font-bold"
@@ -53,9 +54,9 @@ const Header = ({ logo }) => {
           >
             Questions
           </li>
-          </a>
+          </Link>
           
-          <a href="/dashboard/upgrade">
+          <Link href="/dashboard/upgrade">
             <li
               className={`hover:text-black hover:font-bold transition-all cursor-pointer ${
                 path == "/dashboard/upgrade" && "text-black font-bold"
@@ -63,9 +64,9 @@ const Header = ({ logo }) => {
             >
               Upgrade
             </li>
-          </a>
+          </Link>
 
-          <a href="/dashboard/howit">
+          <Link href="/dashboard/howit">
             <li
               className={`hover:text-black hover:font-bold transition-all cursor-pointer ${
                 path == "/dashboard/howit" && "text-black font-bold"
@@ -73,7 +74,7 @@ const Header = ({ logo }) => {
             >
               How it works?
             </li>
-          </a>
+          </Link>
         </ul>
         <div className="md:hidden">
           <button onClick={toggleMenu} className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
@@ -98,7 +99,7 @@ const Header = ({ logo }) => {
         <div className="md:hidden">
           <div className="px-5">
           <ul className="px-2 pt-2 pb-3 space-y-1 sm:px-3" >
-          <a href="/dashboard">
+          <Link href="/dashboard">
             <li
               className={`hover:text-black hover:font-bold transition-all cursor-pointer ${
                 path == "/dashboard" && "text-black font-bold"
@@ -106,8 +107,8 @@ const Header = ({ logo }) => {
             >
               Dashboard
             </li>
-          </a>
-          <a href="/dashboard/question">
+          </Link>
+          <Link href="/dashboard/question">
           <li
             className={`hover:text-black hover:font-bold transition-all cursor-pointer ${
               path == "/dashboard/question" && "text-black font-bold"
@@ -115,8 +116,8 @@ const Header = ({ logo }) => {
           >
             Questions
           </li>
-          </a>
-          <a href="/dashboard/upgrade">
+          </Link>
+          <Link href="/dashboard/upgrade">
             <li
               className={`hover:text-black hover:font-bold transition-all cursor-pointer ${
                 path == "/dashboard/upgrade" && "text-black font-bold"
@@ -124,8 +125,8 @@ const Header = ({ logo }) => {
             >
               Upgrade
             </li>
-          </a>
-          <a href="/dashboard/howit">
+          </Link>
+          <Link href="/dashboard/howit">
             <li
               className={`hover:text-black hover:font-bold transition-all cursor-pointer ${
                 path == "/dashboard/howit" && "text-black font-bold"
@@ -133,7 +134,7 @@ const Header = ({ logo }) => {
             >
               How it works?
             </li>
-          </a>
+          </Link>
           </ul>
           </div>
         </div>

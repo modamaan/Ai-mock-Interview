@@ -23,10 +23,10 @@ import { useRouter } from "next/navigation";
 
 const AddQuestions = () => {
   const [openDailog, setOpenDialog] = useState(false);
-  const [jobPosition, setJobPosition] = useState();
-  const [jobDesc, setJobDesc] = useState();
-  const [typeQuestion, setTypeQuestion] = useState();
-  const [company, setCompany] = useState();
+  const [jobPosition, setJobPosition] = useState('');
+  const [jobDesc, setJobDesc] = useState('');
+  const [typeQuestion, setTypeQuestion] = useState('');
+  const [company, setCompany] = useState('');
   const [jobExperience, setJobExperience] = useState();
   const [loading, setLoading] = useState(false);
   const [questionJsonResponse, setQuestionJsonResponse] = useState([]);
@@ -62,17 +62,16 @@ const AddQuestions = () => {
 
     try {
       const result = await chatSession.sendMessage(InputPrompt);
-      const rawResponse = await result.response.text();
-      // console.log("rawResponse",rawResponse);  // Log the raw response
-      
-      const MockQuestionJsonResp = rawResponse
-        .replace("```json", "")
-        .replace("```", "")
-        .trim();
-      
-      // console.log("MockQuestionJsonResp",MockQuestionJsonResp);  // Log the cleaned-up response
-    
+      const MockQuestionJsonResp = result.response
+      .text()
+      .replace("```json", "")
+      .replace("```", "")
+      .replace(/\\n/g, "")
+      .replace(/\\/g, "")
+      .trim();
 
+      console.log("JSON RESPONSE",MockQuestionJsonResp)
+      // console.log("Parsed RESPONSE", JSON.parse(MockQuestionJsonResp))
 
       if (MockQuestionJsonResp) {
         const resp = await db
@@ -90,10 +89,11 @@ const AddQuestions = () => {
           })
           .returning({ mockId: Question.mockId });
 
-        // console.log("Inserted ID:", resp);
+        console.log("Inserted ID:", resp);
 
         if (resp) {
           setOpenDialog(false);
+
           router.push("/dashboard/pyq/" + resp[0]?.mockId);
         }
       } else {

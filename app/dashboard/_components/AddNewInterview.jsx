@@ -67,7 +67,7 @@ const AddNewInterview = () => {
           createdAt: moment().format("YYYY-MM-DD"),
         })
         .returning({ mockId: MockInterview.mockId });
-
+        
       console.log("Inserted ID:", resp);
 
       if (resp) {
