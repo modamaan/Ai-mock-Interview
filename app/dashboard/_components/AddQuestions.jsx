@@ -23,10 +23,10 @@ import { useRouter } from "next/navigation";
 
 const AddQuestions = () => {
   const [openDailog, setOpenDialog] = useState(false);
-  const [jobPosition, setJobPosition] = useState('');
-  const [jobDesc, setJobDesc] = useState('');
-  const [typeQuestion, setTypeQuestion] = useState('');
-  const [company, setCompany] = useState('');
+  const [jobPosition, setJobPosition] = useState("");
+  const [jobDesc, setJobDesc] = useState("");
+  const [typeQuestion, setTypeQuestion] = useState("");
+  const [company, setCompany] = useState("");
   const [jobExperience, setJobExperience] = useState();
   const [loading, setLoading] = useState(false);
   const [questionJsonResponse, setQuestionJsonResponse] = useState([]);
@@ -63,14 +63,13 @@ const AddQuestions = () => {
     try {
       const result = await chatSession.sendMessage(InputPrompt);
       const MockQuestionJsonResp = result.response
-      .text()
-      .replace("```json", "")
-      .replace("```", "")
-      .replace(/\\n/g, "")
-      .replace(/\\/g, "")
-      .trim();
-
-      console.log("JSON RESPONSE",MockQuestionJsonResp)
+        .text()
+        .replace("```json", "")
+        .replace("```", "")
+        .trim();
+      // console.log("Parsed data", JSON.parse(MockQuestionJsonResp));
+      
+      console.log("JSON RESPONSE", MockQuestionJsonResp);
       // console.log("Parsed RESPONSE", JSON.parse(MockQuestionJsonResp))
 
       if (MockQuestionJsonResp) {

@@ -5,6 +5,7 @@ import { db } from "@/utils/db";
 import { Question } from "@/utils/schema";
 import { desc, eq } from "drizzle-orm";
 import QuestionItemCard from "./QuestionItemCard";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const QuestionList = () => {
   const { user } = useUser();
@@ -26,15 +27,22 @@ const QuestionList = () => {
   };
   return (
     <div>
-      <h2 className="font-medium text-xl">Previous Mock Interview</h2>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 my-3">
-        {questionList &&
-          questionList.map((question, index) => (
+    {questionList.length > 0 ? (
+      <>
+        <h2 className="font-medium text-xl">Previous Mock Interview</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 my-3">
+          {questionList.map((question, index) => (
             <QuestionItemCard key={index} question={question} />
           ))}
+        </div>
+      </>
+    ) : (
+      <div className="my-10 flex flex-col gap-5">
+       <Skeleton className="w-[20rem] h-10 rounded-full animate-pulse bg-gray-300" />
+       <Skeleton className="w-[20rem] h-10 rounded-full animate-pulse bg-gray-300" />
       </div>
-    </div>
+    )}
+  </div>
   );
 };
 

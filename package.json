@@ -15,6 +15,7 @@
     "@clerk/themes": "^2.1.9",
     "@google/generative-ai": "^0.13.0",
     "@hookform/resolvers": "^3.7.0",
+    "@material-tailwind/react": "^2.1.9",
     "@neondatabase/serverless": "^0.9.3",
     "@radix-ui/react-accordion": "^1.2.0",
     "@radix-ui/react-collapsible": "^1.1.0",
