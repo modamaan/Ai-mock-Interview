@@ -1,4 +1,3 @@
-
 const {
   GoogleGenerativeAI,
   HarmCategory,
@@ -9,7 +8,7 @@ const apiKey = process.env.NEXT_PUBLIC_GEMINI_API_KEY;
 const genAI = new GoogleGenerativeAI(apiKey);
 
 const model = genAI.getGenerativeModel({
-  model: "gemini-1.5-flash",
+  model: "models/gemini-1.5-flash-latest",
 });
 
 const generationConfig = {
@@ -33,5 +32,5 @@ const safetySettings = [
 
 export const chatSession = model.startChat({
   generationConfig,
-  safetySettings
+  safetySettings,
 });
