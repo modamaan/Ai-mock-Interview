@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import React from "react";
 import { getUserProgress } from "@/utils/queries";
 import { redirect } from "next/navigation";

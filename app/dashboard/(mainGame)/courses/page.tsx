@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import MobileHeader from "@/components/MobileHeader";
 import { getCourses, getUserProgress } from "@/utils/queries";
 import React from "react";
