@@ -1,49 +1,63 @@
 "use client";
-import { db } from "@/utils/db";
-import { MockInterview } from "@/utils/schema";
-import { eq } from "drizzle-orm";
 import { Lightbulb, WebcamIcon } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import Webcam from "react-webcam";
 import Link from "next/link";
-import { useContext } from 'react';
+import { useContext } from "react";
 import { WebCamContext } from "../../layout";
 
 const Interview = ({ params }) => {
   const { webCamEnabled, setWebCamEnabled } = useContext(WebCamContext);
-  const [interviewData, setInterviewData] = useState();
-  // const [webCamEnabled, setWebCamEnebled] = useState(false);
+  const [interviewData, setInterviewData] = useState(null);
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
-    console.log(params.interviewId);
-    GetInterviewDetails();
+    fetchInterviewDetails();
   }, []);
-  
-  const GetInterviewDetails = async () => {
-    const result = await db
-      .select()
-      .from(MockInterview)
-      .where(eq(MockInterview.mockId, params.interviewId));
-      
-    setInterviewData(result[0]);
+
+  const fetchInterviewDetails = async () => {
+    try {
+      const res = await fetch(`/api/interviews/${params.interviewId}`);
+      if (!res.ok) throw new Error("Failed to fetch interview");
+      const data = await res.json();
+      setInterviewData(data);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
   };
+
+  if (loading) {
+    return (
+      <div className="my-10 text-center text-gray-500">Loading interview details...</div>
+    );
+  }
+
+  if (!interviewData) {
+    return (
+      <div className="my-10 text-center text-red-500">Interview not found.</div>
+    );
+  }
+
   return (
     <div className="my-10">
-      <h2 className="font-bold text-2xl text-center">Let's Get Started</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-10 ">
+      <h2 className="font-bold text-2xl text-center">Let&apos;s Get Started</h2>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
         <div className="flex flex-col my-5 gap-5">
           <div className="flex flex-col p-5 rounded-lg border gap-5">
             <h2 className="text-lg">
               <strong>Job Role/Job Position: </strong>
-              {interviewData?.jobPosition}
+              {interviewData.jobPosition}
             </h2>
             <h2 className="text-lg">
               <strong>Job Description/Job Stack: </strong>
-              {interviewData?.jobDesc}
+              {interviewData.jobDesc}
             </h2>
             <h2 className="text-lg">
               <strong>Years of Experience: </strong>
-              {interviewData?.jobExperience}
+              {interviewData.jobExperience}
             </h2>
           </div>
           <div className="p-5 border rounded-lg border-yellow-300 bg-yellow-100">
@@ -58,7 +72,7 @@ const Interview = ({ params }) => {
         </div>
         <div>
           {webCamEnabled ? (
-            <div className=" flex items-center justify-center p-10">
+            <div className="flex items-center justify-center p-10">
               <Webcam
                 onUserMedia={() => setWebCamEnabled(true)}
                 onUserMediaError={() => setWebCamEnabled(false)}
@@ -74,7 +88,7 @@ const Interview = ({ params }) => {
           )}
           <div>
             <Button
-              className={`${webCamEnabled ? "w-full" : "w-full"}`}
+              className="w-full"
               onClick={() => setWebCamEnabled((prev) => !prev)}
             >
               {webCamEnabled ? "Close WebCam" : "Enable WebCam"}

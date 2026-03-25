@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Only allow search engines to index the landing page and public routes
+Disallow: /dashboard/
+Disallow: /api/
+
+Sitemap: https://ai-mock-interview.vercel.app/sitemap.xml

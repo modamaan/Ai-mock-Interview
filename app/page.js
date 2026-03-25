@@ -1,31 +1,22 @@
 import React from 'react'
-import { Button } from '@/components/ui/button';
-import Head from 'next/head';
 import Contect from './_components/Contect';
 import Link from 'next/link';
-import { FaGithub } from "react-icons/fa";
+
+export const metadata = {
+  title: 'AI Mock Interview',
+  description: 'Ace your next interview with AI-powered mock interviews and get personalized feedback.',
+};
 
 const page = () => {
   return (
-    // <div className='p-10 flex flex-col items-center justify-center' >
-    //   <h1 className='red font-bold text-[22px]'>Welcome to AI Mock Interview</h1>
-    // <a  ><h1><Button>Start</Button></h1></a>
-    // </div>
-
-    <div>
-      <Head>
-        <title>AI Mock Interview</title>
-        <meta name="description" content="Ace your next interview with AI-powered mock interviews" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
+    <>
       <main className="min-h-screen">
         {/* Header Section */}
         <header className="w-full py-8 bg-gray-100 shadow-md">
           <div className="container mx-auto flex flex-col md:flex-row justify-between items-center px-6">
             <h1 className="text-3xl font-bold text-primary">AI Mock Interview</h1>
             <nav className="flex flex-col sm:flex-row flex-wrap items-center justify-between mt-4 md:mt-0 space-y-4 sm:space-y-0 sm:space-x-4">
-              <div>
+              {/* <div>
                 <iframe
                   src="https://github.com/sponsors/modamaan/button"
                   title="Sponsor modamaan on GitHub"
@@ -42,7 +33,7 @@ const page = () => {
                   href="https://github.com/modamaan/Ai-mock-Interview">
                   <FaGithub className="w-10 h-8" />
                 </a>
-              </div>
+              </div> */}
 
               <div className="flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0">
                 <a href="#features" className="text-lg text-gray-800 mx-2 md:mx-4">Features</a>
@@ -137,7 +128,7 @@ const page = () => {
       <footer className="py-8 bg-black text-white text-center">
         <p>© 2024 AI Mock Interview. All rights reserved.</p>
       </footer>
-    </div>
+    </>
   )
 }
 

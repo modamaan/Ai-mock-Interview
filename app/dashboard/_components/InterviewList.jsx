@@ -1,45 +1,46 @@
 "use client";
-import { useUser } from "@clerk/nextjs";
 import React, { useEffect, useState } from "react";
-import { db } from "@/utils/db";
-import { MockInterview } from "@/utils/schema";
-import { desc, eq } from "drizzle-orm";
 import InterviewItemCard from "./InterviewItemCard";
-import { Skeleton } from "@/components/ui/skeleton"
-
+import { Skeleton } from "@/components/ui/skeleton";
 
 const InterviewList = () => {
-  const { user } = useUser();
   const [interviewList, setInterviewList] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    user && GetInterviewList();
-  }, [user]);
+    fetchInterviews();
+  }, []);
 
-  const GetInterviewList = async () => {
-    const result = await db
-      .select()
-      .from(MockInterview)
-      .where(
-        eq(MockInterview.createdBy, user?.primaryEmailAddress?.emailAddress)
-      )
-      .orderBy(desc(MockInterview.id));
-
-    console.log(result);
-    setInterviewList(result);
+  const fetchInterviews = async () => {
+    try {
+      const res = await fetch("/api/interviews/list");
+      if (!res.ok) throw new Error("Failed to fetch");
+      const data = await res.json();
+      setInterviewList(data);
+    } catch {
+      // silently fail — user just won't see the list
+    } finally {
+      setLoading(false);
+    }
   };
+
   return (
     <div>
-      <h2 className="font-medium text-xl">Previous Mock Interview</h2>
-  
-      {interviewList ? (
+      <h2 className="font-medium text-xl">Previous Mock Interviews</h2>
+      {loading ? (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 my-3">
+          {[...Array(3)].map((_, i) => (
+            <Skeleton key={i} className="h-32 rounded-lg" />
+          ))}
+        </div>
+      ) : interviewList.length === 0 ? (
+        <p className="text-gray-500 my-3">No interviews yet. Create one above!</p>
+      ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 my-3">
           {interviewList.map((interview, index) => (
             <InterviewItemCard key={index} interview={interview} />
           ))}
         </div>
-      ) : (
-        <Skeleton className="w-[100px] h-[20px] rounded-full" />
       )}
     </div>
   );

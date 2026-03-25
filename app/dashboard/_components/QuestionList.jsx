@@ -1,30 +1,42 @@
 "use client";
-import { useUser } from "@clerk/nextjs";
 import React, { useEffect, useState } from "react";
-import { db } from "@/utils/db";
-import { Question } from "@/utils/schema";
-import { desc, eq } from "drizzle-orm";
 import QuestionItemCard from "./QuestionItemCard";
 import { Skeleton } from "@/components/ui/skeleton";
+import { toast } from "sonner";
 
 const QuestionList = () => {
-  const { user } = useUser();
   const [questionList, setQuestionList] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    user && GetQuestionList();
-  }, [user]);
+    GetQuestionList();
+  }, []);
 
   const GetQuestionList = async () => {
-    const result = await db
-      .select()
-      .from(Question)
-      .where(eq(Question.createdBy, user?.primaryEmailAddress?.emailAddress))
-      .orderBy(desc(Question.id));
-
-    console.log(result);
-    setQuestionList(result);
+    try {
+      const res = await fetch("/api/questions/list");
+      if (!res.ok) {
+        throw new Error("Failed to fetch questions");
+      }
+      const data = await res.json();
+      setQuestionList(data);
+    } catch (error) {
+      console.error(error);
+      toast.error("Could not load previous mock questions");
+    } finally {
+      setLoading(false);
+    }
   };
+
+  if (loading) {
+    return (
+      <div className="my-10 flex flex-col gap-5">
+        <Skeleton className="w-full sm:w-[20rem] h-10 rounded-full" />
+        <Skeleton className="w-full sm:w-[20rem] h-10 rounded-full" />
+      </div>
+    );
+  }
+
   return (
     <div>
       {questionList.length > 0 ? (
@@ -37,9 +49,8 @@ const QuestionList = () => {
           </div>
         </>
       ) : (
-        <div className="my-10 flex flex-col gap-5">
-          <Skeleton className="w-full sm:w-[20rem] h-10 rounded-full animate-pulse bg-gray-300" />
-          <Skeleton className="w-full sm:w-[20rem] h-10 rounded-full animate-pulse bg-gray-300" />
+        <div className="my-10 flex flex-col gap-2 opacity-50">
+          <p>No previous generated questions found.</p>
         </div>
       )}
     </div>

@@ -6,44 +6,62 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { db } from "@/utils/db";
-import { Question } from "@/utils/schema";
-import { eq } from "drizzle-orm";
+import { Skeleton } from "@/components/ui/skeleton";
+import { toast } from "sonner";
 
 const page = ({ params }) => {
-  const [questionData, setQuestionData] = useState();
+  const [questionData, setQuestionData] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    console.log(params.pyqId);
     getQuestionDetails();
   }, []);
 
   const getQuestionDetails = async () => {
-    const result = await db
-      .select()
-      .from(Question)
-      .where(eq(Question.mockId, params.pyqId));
-      const questionData = JSON.parse(result[0].MockQuestionJsonResp);
-    setQuestionData(questionData);
-    // console.log("data", questionData);
+    try {
+      const res = await fetch(`/api/questions/${params.pyqId}`);
+      if (!res.ok) {
+        throw new Error("Failed to fetch mock question details");
+      }
+      
+      const result = await res.json();
+      const parsedData = JSON.parse(result.MockQuestionJsonResp);
+      setQuestionData(parsedData);
+    } catch (error) {
+      console.error(error);
+      toast.error("Failed to load question details.");
+    } finally {
+      setLoading(false);
+    }
   };
 
-
+  if (loading) {
+    return (
+      <div className="p-10 my-5 flex flex-col gap-4">
+        <Skeleton className="h-14 w-full rounded-md" />
+        <Skeleton className="h-14 w-full rounded-md" />
+        <Skeleton className="h-14 w-full rounded-md" />
+      </div>
+    );
+  }
 
   return (
-    questionData && (
     <div className="p-10 my-5">
-      <Accordion type="single" collapsible>
-        {questionData &&
-          questionData.map((item, index) => (
-            <AccordionItem value={`item-${index + 1}`} key={index} className="mb-5"  >
-              <AccordionTrigger>{item?.Question}?</AccordionTrigger>
-              <AccordionContent>{item?.Answer}</AccordionContent>
+      {questionData && questionData.length > 0 ? (
+        <Accordion type="single" collapsible>
+          {questionData.map((item, index) => (
+            <AccordionItem value={`item-${index + 1}`} key={index} className="mb-5">
+              <AccordionTrigger className="text-left font-semibold">{item?.Question}?</AccordionTrigger>
+              <AccordionContent className="text-gray-700 leading-relaxed bg-gray-50 p-4 rounded-md mt-2">
+                {item?.Answer}
+              </AccordionContent>
             </AccordionItem>
           ))}
-      </Accordion>
+        </Accordion>
+      ) : (
+        <div className="text-center text-gray-500 py-10">No questions data available.</div>
+      )}
     </div>
-    )
   );
 };
 
