@@ -32,7 +32,7 @@ export const getUserProgress = cache(async () => {
 export const getCourses = cache(async () => {
   try {
     // Query the courses table to get all course records
-    const data = await db.query.courses.findMany();
+    const data = await db.select().from(courses);
     return data;
   } catch (error) {
     console.error("Error fetching courses:", error);

@@ -18,6 +18,7 @@ const MobileSidebar = () => {
     <SheetTrigger>
         <Menu className='text-white' />
     </SheetTrigger>
+    {/* @ts-ignore - SheetContent from JS shadcn lacks strictly typed children prop */}
     <SheetContent side="left"  >
         <Sidebar/>
     </SheetContent>
