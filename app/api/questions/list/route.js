@@ -15,9 +15,9 @@ export async function GET(request) {
     }
 
     const email = user.primaryEmailAddress?.emailAddress;
-    
+
     if (!email) {
-       return NextResponse.json([]);
+      return NextResponse.json([]);
     }
 
     const result = await db

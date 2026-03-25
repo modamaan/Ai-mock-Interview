@@ -10,7 +10,7 @@ export async function POST(request) {
   try {
     const { userId } = await auth();
     const user = await currentUser();
-    
+
     if (!userId || !user) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
@@ -46,7 +46,7 @@ export async function POST(request) {
     const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
     const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
     const result = await model.generateContent(prompt);
-    
+
     const MockQuestionJsonResp = result.response
       .text()
       .replace(/```json/g, "")

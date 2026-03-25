@@ -15,7 +15,7 @@ const MainGame = async () => {
 
   const [userProgress] = await Promise.all([userProgressData]);
 
-  if(!userProgress || !userProgress.activeCourse){
+  if (!userProgress || !userProgress.activeCourse) {
     redirect("/dashboard/courses")
   }
   return (
