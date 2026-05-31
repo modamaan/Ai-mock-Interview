@@ -1,5 +1,9 @@
 # AI-Powered Mock Interview Platform
 
+## Tech Blog and Products
+[DevBlog](https://www.devblog.blog/)
+
+
 <img width="1901" height="874" alt="Screenshot 2026-02-08 153126" src="https://github.com/user-attachments/assets/39ced7a0-22a4-4329-93a5-0d9991dba2c9" />
 
 
